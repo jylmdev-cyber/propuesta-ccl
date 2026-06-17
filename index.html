@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Portal web técnico corporativo de CCL Industrias Mecánicas SAC (CCL Mallas).">
+  <title>CCL MALLAS - Soluciones de Cribado Industrial</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+        <div class="logo-text">
+          <span class="logo-title">CCL MALLAS</span>
+          <span class="logo-subtitle">Garantía, Buen Servicio</span>
+        </div>
+      </a>
+      <nav>
+        <a href="index.html" class="nav-link active" data-translate="nav_home">Inicio</a>
+        <a href="productos.html" class="nav-link" data-translate="nav_products">Productos</a>
+        <a href="contacto.html" class="nav-link" data-translate="nav_contact">Contacto</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="toggle-btn" id="toggle-language">🌐 EN</button>
+        <button class="toggle-btn" id="toggle-theme">🌙 Oscuro</button>
+        <a href="admin.html" class="btn btn-outline" data-translate="btn_admin">Panel Admin</a>
+        <a href="cotizar.html" class="btn btn-secondary" data-translate="btn_request_quote">Solicitar Cotización</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-mesh-overlay"></div>
+    <canvas class="hero-particle-canvas" id="canvas-sieve-animation"></canvas>
+    <div class="hero-container">
+      <div class="hero-content">
+        <span class="hero-tagline" data-translate="hero_tagline">Industria Metalmecánica</span>
+        <h1 class="hero-title" data-translate="hero_title">Soluciones de cribado diseñadas para <span>operaciones exigentes</span></h1>
+        <p class="hero-desc" data-translate="hero_desc">Fabricamos mallas de acero, paneles de poliuretano y componentes para procesos de trituración, clasificación y selección de materiales.</p>
+        <div class="hero-buttons">
+          <a href="cotizar.html" class="btn btn-secondary" data-translate="btn_request_quote">Solicitar cotización</a>
+          <a href="productos.html" class="btn btn-outline" style="border-color:#fff; color:#fff;" data-translate="btn_explore_prod">Explorar productos</a>
+          <button class="btn btn-dark" onclick="showToast('Iniciando descarga del Catálogo General CCL 2026...', 'success')" data-translate="btn_download_cat">Descargar catálogo</button>
+        </div>
+      </div>
+      <div class="hero-indicators-panel">
+        <div class="floating-indicator-card" style="display:flex; align-items:center; gap:15px; padding:1rem 1.25rem;">
+          <img src="assets/steel_wire_mesh.png" style="width:55px; height:55px; border-radius:var(--radius-sm); object-fit:cover; border:1px solid rgba(255,255,255,0.15);" alt="Mallas">
+          <div>
+            <h4 class="indicator-title" data-translate="ind_custom">Fabricación personalizada</h4>
+            <p class="indicator-desc" data-translate="ind_custom_desc">Planos y medidas exactas</p>
+          </div>
+        </div>
+        <div class="floating-indicator-card" style="display:flex; align-items:center; gap:15px; padding:1rem 1.25rem;">
+          <img src="assets/mounting_accessories.png" style="width:55px; height:55px; border-radius:var(--radius-sm); object-fit:cover; border:1px solid rgba(255,255,255,0.15);" alt="Accesorios">
+          <div>
+            <h4 class="indicator-title" data-translate="ind_tech">Atención técnica</h4>
+            <p class="indicator-desc" data-translate="ind_tech_desc">Soporte en planta</p>
+          </div>
+        </div>
+        <div class="floating-indicator-card" style="display:flex; align-items:center; gap:15px; padding:1rem 1.25rem;">
+          <img src="assets/polyurethane_panel.png" style="width:55px; height:55px; border-radius:var(--radius-sm); object-fit:cover; border:1px solid rgba(255,255,255,0.15);" alt="Poliuretano">
+          <div>
+            <h4 class="indicator-title" data-translate="ind_mining">Industria minera</h4>
+            <p class="indicator-desc" data-translate="ind_mining_desc">Soportamos alto impacto</p>
+          </div>
+        </div>
+        <div class="floating-indicator-card" style="display:flex; align-items:center; gap:15px; padding:1rem 1.25rem;">
+          <img src="assets/ccl_flex_screen.png" style="width:55px; height:55px; border-radius:var(--radius-sm); object-fit:cover; border:1px solid rgba(255,255,255,0.15);" alt="Flex">
+          <div>
+            <h4 class="indicator-title" data-translate="ind_shipping">Envíos nacionales</h4>
+            <p class="indicator-desc" data-translate="ind_shipping_desc">Despacho a todo el Perú</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions by Industry -->
+  <section class="solutions">
+    <div class="section-header">
+      <h2 class="section-title" data-translate="title_solutions">Soluciones por Industria</h2>
+      <p class="section-subtitle" data-translate="subtitle_solutions">Adaptamos nuestras cribas para optimizar los procesos de clasificación en distintos sectores.</p>
+    </div>
+    <div class="solutions-grid" id="solutions-grid-container">
+      <!-- Dynamically loaded -->
+    </div>
+  </section>
+
+  <!-- Competitive Advantages -->
+  <section class="advantages" style="background: var(--card-light); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="section-header">
+      <h2 class="section-title" data-translate="title_advantages">Ventajas Competitivas</h2>
+      <p class="section-subtitle" data-translate="subtitle_advantages">Por qué las principales empresas de minería y agregados eligen a CCL Mallas.</p>
+    </div>
+    <div class="advantages-grid">
+      <div class="about-features" id="advantages-grid-container" style="display:flex; flex-direction:column; gap:1.5rem;">
+        <!-- Loaded dynamically via js/home.js -->
+      </div>
+      <div style="position:relative; width:100%;">
+        <img src="assets/advantages_blueprint.png" style="width:100%; border-radius:var(--radius-md); border:1px solid var(--border-light); box-shadow:var(--shadow-lg); object-fit:cover; height:360px;" alt="Zaranda vibratoria blueprint">
+        <div style="position:absolute; bottom:15px; left:15px; background:rgba(7,9,14,0.85); backdrop-filter:blur(6px); border:1px solid rgba(255,255,255,0.08); padding:0.6rem 1rem; border-radius:var(--radius-sm); font-size:0.75rem; color:#fff; font-family:monospace;">
+          MODEL: CCL-VIBRO-DECK-2026 // GRID MESH V1.2
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process of Service -->
+  <section class="process">
+    <div class="section-header">
+      <h2 class="section-title" data-translate="title_process">Nuestro Proceso de Atención</h2>
+      <p class="section-subtitle" data-translate="subtitle_process">Garantizamos un servicio técnico ágil, desde el diseño en plano hasta la entrega en obra.</p>
+    </div>
+    <div class="solutions-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1.5rem;">
+      <div class="solution-card" style="padding:1.5rem;">
+        <div class="solution-icon-wrap" style="background:rgba(0, 115, 198, 0.1); color:var(--primary-blue); border:1px solid rgba(0, 115, 198, 0.25);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </div>
+        <h4 class="solution-title" data-translate="step1_title">1. Envío del Requerimiento</h4>
+        <p style="font-size:0.78rem; color:var(--text-muted);" data-translate="step1_desc">El cliente indica equipo, medidas y condiciones.</p>
+      </div>
+      <div class="solution-card" style="padding:1.5rem;">
+        <div class="solution-icon-wrap" style="background:rgba(0, 115, 198, 0.1); color:var(--primary-blue); border:1px solid rgba(0, 115, 198, 0.25);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        </div>
+        <h4 class="solution-title" data-translate="step2_title">2. Evaluación Técnica</h4>
+        <p style="font-size:0.78rem; color:var(--text-muted);" data-translate="step2_desc">El equipo analiza abertura y diámetro de alambre.</p>
+      </div>
+      <div class="solution-card" style="padding:1.5rem;">
+        <div class="solution-icon-wrap" style="background:rgba(0, 115, 198, 0.1); color:var(--primary-blue); border:1px solid rgba(0, 115, 198, 0.25);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h4 class="solution-title" data-translate="step3_title">3. Propuesta y Cotización</h4>
+        <p style="font-size:0.78rem; color:var(--text-muted);" data-translate="step3_desc">Se genera la cotización con ficha técnica.</p>
+      </div>
+      <div class="solution-card" style="padding:1.5rem;">
+        <div class="solution-icon-wrap" style="background:rgba(0, 115, 198, 0.1); color:var(--primary-blue); border:1px solid rgba(0, 115, 198, 0.25);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1-1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2v.09"/></svg>
+        </div>
+        <h4 class="solution-title" data-translate="step4_title">4. Fabricación</h4>
+        <p style="font-size:0.78rem; color:var(--text-muted);" data-translate="step4_desc">Producción bajo control de calidad OHSAS 18001.</p>
+      </div>
+      <div class="solution-card" style="padding:1.5rem;">
+        <div class="solution-icon-wrap" style="background:rgba(0, 115, 198, 0.1); color:var(--primary-blue); border:1px solid rgba(0, 115, 198, 0.25);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h4 class="solution-title" data-translate="step5_title">5. Entrega y Seguimiento</h4>
+        <p style="font-size:0.78rem; color:var(--text-muted);" data-translate="step5_desc">Despacho nacional y soporte post-venta.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Banner -->
+  <section class="featured-cta" style="background: linear-gradient(135deg, var(--primary-blue) 0%, #004d85 100%); color: #fff; border-radius: var(--radius-lg); padding: 4.5rem 3rem; margin: 4rem auto; text-align: center; max-width:1160px; position:relative; overflow:hidden;">
+    <div class="hero-mesh-overlay"></div>
+    <h2 style="font-size: 2.25rem; margin-bottom: 1rem; position:relative; z-index:2;" data-translate="cta_title">¿Necesita una malla diseñada para sus condiciones de operación?</h2>
+    <p style="opacity: 0.95; max-width: 700px; margin: 0 auto 2.5rem; font-size: 1.1rem; position:relative; z-index:2;" data-translate="cta_desc">Nuestro equipo técnico está listo para cotizar y asesorarle sin compromiso.</p>
+    <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; position:relative; z-index:2;">
+      <a href="cotizar.html" class="btn btn-secondary" style="background-color: var(--primary-red); padding: 0.85rem 2rem;" data-translate="btn_quote_now">Cotizar ahora</a>
+      <a href="https://wa.me/51946198250" target="_blank" class="btn btn-outline" style="border-color:#fff; color:#fff; padding: 0.85rem 2rem;" data-translate="btn_talk_expert">Hablar con un especialista</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom: 1rem;">
+          <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+          <div class="logo-text">
+            <span class="logo-title">CCL MALLAS</span>
+            <span class="logo-subtitle">Garantía, Buen Servicio</span>
+          </div>
+        </div>
+        <p class="footer-brand-desc">Líderes peruanos en soluciones de cribado, mallas metálicas y paneles modulares para operaciones mineras y canteras a nivel nacional.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegación</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="contacto.html">Contacto y Planta</a></li>
+          <li><a href="admin.html">Ingreso Administrativo (CMS)</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Datos de Contacto</h4>
+        <ul class="footer-contact-list">
+          <li><span class="footer-contact-icon" data-icon="mapPin"></span><span id="footer-address">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="phone"></span><span id="footer-phone">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="mail"></span><span id="footer-email">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="clock"></span><span id="footer-hours">Cargando...</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 CCL Industrias Mecánicas S.A.C. Todos los derechos reservados.</p>
+      <p>Propuesta de Diseño Web Moderno y CMS Administrativo</p>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast" id="toast-notification"></div>
+
+  <!-- Scripts -->
+  <script src="mockData.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

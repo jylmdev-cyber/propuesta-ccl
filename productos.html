@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo técnico de mallas metálicas, paneles de poliuretano y sistemas autolimpiantes CCL.">
+  <title>Productos - CCL MALLAS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+        <div class="logo-text">
+          <span class="logo-title">CCL MALLAS</span>
+          <span class="logo-subtitle">Garantía, Buen Servicio</span>
+        </div>
+      </a>
+      <nav>
+        <a href="index.html" class="nav-link" data-translate="nav_home">Inicio</a>
+        <a href="productos.html" class="nav-link active" data-translate="nav_products">Productos</a>
+        <a href="contacto.html" class="nav-link" data-translate="nav_contact">Contacto</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="toggle-btn" id="toggle-language">🌐 EN</button>
+        <button class="toggle-btn" id="toggle-theme">🌙 Oscuro</button>
+        <a href="admin.html" class="btn btn-outline" data-translate="btn_admin">Panel Admin</a>
+        <a href="cotizar.html" class="btn btn-secondary" data-translate="btn_request_quote">Solicitar Cotización</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Products Catalog Section -->
+  <section class="catalog" style="margin-top: 5rem; padding-top: 4rem;">
+    <div class="section-header">
+      <h1 class="section-title" data-translate="title_products">Nuestros Productos</h1>
+      <p class="section-subtitle" data-translate="subtitle_products">Fabricamos soluciones de alta resistencia y durabilidad para zarandas mineras e industriales.</p>
+    </div>
+
+    <!-- Filter & Search Controls -->
+    <div class="products-filter-container">
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">Todos</button>
+        <button class="filter-tab" data-filter="mallas-cuadradas">Mallas Cuadradas</button>
+        <button class="filter-tab" data-filter="mallas-rectangulares">Mallas Rectangulares</button>
+        <button class="filter-tab" data-filter="mallas-rollos">Mallas en Rollos</button>
+        <button class="filter-tab" data-filter="ccl-flex">CCL-Flex</button>
+        <button class="filter-tab" data-filter="paneles-poliuretano">Poliuretano</button>
+        <button class="filter-tab" data-filter="accesorios">Accesorios</button>
+      </div>
+      <div class="search-box">
+        <span class="search-box-icon" data-icon="search"></span>
+        <input type="text" id="search-products" placeholder="Buscar productos...">
+      </div>
+    </div>
+
+    <!-- Products Catalog Grid -->
+    <div class="products-grid" id="products-catalog-grid">
+      <!-- Loaded dynamically via js/productos.js -->
+    </div>
+  </section>
+
+  <!-- Technical Information & Specifications -->
+  <section class="tech-specs" style="background: var(--bg-light); border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);">
+    <div class="section-header">
+      <h2 class="section-title">Información Técnica del Cribado</h2>
+      <p class="section-subtitle">Conoce los detalles técnicos que garantizan el correcto funcionamiento de nuestras mallas y sistemas de cribado en planta.</p>
+    </div>
+
+    <!-- Interactive Tabs -->
+    <div class="tech-tabs-nav">
+      <button class="tech-tab-btn active" data-tech="ondulado">Tipos de Ondulado</button>
+      <button class="tech-tab-btn" data-tech="acabados">Acabados Laterales (Ganchos)</button>
+      <button class="tech-tab-btn" data-tech="materiales">Aceros y Aleaciones</button>
+    </div>
+
+    <div class="tech-content-container">
+      <div class="tech-detail-text" id="tech-detail-text">
+        <!-- Dynamically loaded details -->
+      </div>
+      <div class="tech-diagram-mock" id="tech-detail-diagram">
+        <!-- Dynamically loaded SVG diagram -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Area Calculator Section -->
+  <section class="calculator">
+    <div class="section-header">
+      <h2 class="section-title" data-translate="title_calc">Calculadora de Área Abierta</h2>
+      <p class="section-subtitle" data-translate="subtitle_calc">Evalúa el rendimiento de tus mallas calculando el porcentaje de área de paso efectiva.</p>
+    </div>
+
+    <div class="calc-container">
+      <form class="calc-inputs" id="form-calculator">
+        <div style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
+          <label for="c-type" style="font-weight:600;" data-translate="calc_opening_type">Tipo de Abertura</label>
+          <select id="c-type" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+            <option value="square" data-translate="calc_square">Abertura Cuadrada</option>
+            <option value="rect" data-translate="calc_rect">Abertura Rectangular (Slot)</option>
+          </select>
+        </div>
+        
+        <div style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
+          <label for="c-width" style="font-weight:600;" data-translate="calc_opening_width">Ancho de Abertura (A) *</label>
+          <input type="number" step="0.01" id="c-width" placeholder="Ej. 12.7" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
+          <label for="c-diameter" style="font-weight:600;" data-translate="calc_wire_diameter">Diámetro de Alambre (D) *</label>
+          <input type="number" step="0.01" id="c-diameter" placeholder="Ej. 4.76" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top:0.5rem;" data-translate="calc_btn">Calcular Área Abierta</button>
+      </form>
+
+      <div class="calc-outputs">
+        <h3 data-translate="calc_result">Resultado del Análisis</h3>
+        <div class="calc-result-number" id="calc-res-value">0.0%</div>
+        <div class="calc-bar-wrap">
+          <div class="calc-bar-fill" id="calc-res-prod-bar"></div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem; text-align:left; font-size:0.9rem; margin-top:1.5rem; border-top:1px solid var(--border-light); padding-top:1.25rem;">
+          <div><strong data-translate="calc_production">Nivel de Producción Esperado:</strong> <span id="calc-res-prod" style="font-weight:600;">-</span></div>
+          <div><strong data-translate="calc_resistance">Nivel de Resistencia Estructural:</strong> <span id="calc-res-res" style="font-weight:600;">-</span></div>
+          <div><strong data-translate="calc_recommended">Producto CCL Recomendado:</strong> <span id="calc-res-rec" style="color:var(--primary-blue); font-weight:700;">-</span></div>
+        </div>
+        <!-- Dynamic live mesh SVG visualization -->
+        <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-light); border-radius:var(--radius-sm); height:160px; display:flex; align-items:center; justify-content:center; margin-top:1.5rem; position:relative; overflow:visible;">
+          <svg id="calc-mesh-svg" width="130" height="130" style="overflow:visible;"></svg>
+          <div style="position:absolute; bottom:6px; right:8px; font-size:0.65rem; color:var(--text-muted); font-family:monospace;">PREVISIÓN DEL TEJIDO</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom: 1rem;">
+          <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+          <div class="logo-text">
+            <span class="logo-title">CCL MALLAS</span>
+            <span class="logo-subtitle">Garantía, Buen Servicio</span>
+          </div>
+        </div>
+        <p class="footer-brand-desc">Líderes peruanos en soluciones de cribado, mallas metálicas y paneles modulares para operaciones mineras y canteras a nivel nacional.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegación</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="contacto.html">Contacto y Planta</a></li>
+          <li><a href="admin.html">Ingreso Administrativo (CMS)</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Datos de Contacto</h4>
+        <ul class="footer-contact-list">
+          <li><span class="footer-contact-icon" data-icon="mapPin"></span><span id="footer-address">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="phone"></span><span id="footer-phone">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="mail"></span><span id="footer-email">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="clock"></span><span id="footer-hours">Cargando...</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 CCL Industrias Mecánicas S.A.C. Todos los derechos reservados.</p>
+      <p>Propuesta de Diseño Web Moderno y CMS Administrativo</p>
+    </div>
+  </footer>
+
+  <!-- Modal: Technical Datasheet -->
+  <div class="admin-modal" id="modal-technical-sheet">
+    <div class="admin-modal-card" style="max-width: 620px;">
+      <div class="admin-modal-header" style="border-bottom: 1px solid var(--border-light);">
+        <h3 class="admin-modal-title" id="modal-techsheet-title" style="color:var(--text-dark);">Ficha Técnica del Producto</h3>
+        <button class="btn-modal-close" id="btn-close-techsheet-modal" style="color:var(--text-muted);">&times;</button>
+      </div>
+      <div class="admin-modal-body" style="display: flex; flex-direction: column; gap: 1.25rem; max-height:75vh; overflow-y:auto; padding: 1.5rem;">
+        
+        <!-- Technical specifications sheet grid -->
+        <div class="techsheet-grid">
+          <div><strong style="color:var(--text-muted)">Categoría:</strong></div><div id="modal-techsheet-category" style="font-weight:600;">-</div>
+          <div><strong style="color:var(--text-muted)">Material de Fabricación:</strong></div><div id="modal-techsheet-material" style="font-weight:600;">-</div>
+          <div><strong style="color:var(--text-muted)">Rango Aberturas (Luz):</strong></div><div id="modal-techsheet-aperture">-</div>
+          <div><strong style="color:var(--text-muted)">Diámetro de Alambre:</strong></div><div id="modal-techsheet-diameter">-</div>
+          <div><strong style="color:var(--text-muted)">Dimensiones Estándar:</strong></div><div id="modal-techsheet-sizes">-</div>
+          <div style="grid-column: 1/-1; border-top: 1px solid var(--border-light); padding-top:0.75rem; margin-top:0.25rem;">
+            <strong style="color:var(--text-dark)">Descripción del Sistema:</strong>
+            <p id="modal-techsheet-desc" style="font-size:0.82rem; color:var(--text-muted); margin-top:4px; line-height:1.4; white-space:pre-wrap;"></p>
+          </div>
+          <div style="grid-column: 1/-1; border-top: 1px solid var(--border-light); padding-top:0.75rem;">
+            <strong style="color:var(--text-dark)">Principales Aplicaciones:</strong>
+            <p id="modal-techsheet-applications" style="font-size:0.82rem; color:var(--text-muted); margin-top:4px; line-height:1.4;"></p>
+          </div>
+        </div>
+
+        <!-- Blueprint drawing visual representation -->
+        <div style="background:var(--bg-light); border:1px solid var(--border-light); border-radius:var(--radius-md); height:180px; display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative;">
+          <img id="modal-techsheet-blueprint" src="assets/steel_wire_mesh.png" style="width:100%; height:100%; object-fit:cover; opacity:0.85;" alt="Dibujo técnico de malla">
+          <div style="position:absolute; bottom:8px; left:10px; background:rgba(7,9,14,0.8); border:1px solid var(--border-light); padding:0.3rem 0.6rem; border-radius:var(--radius-sm); font-size:0.65rem; color:#fff; font-family:monospace;">
+            ESQUEMA INDUSTRIAL CCL
+          </div>
+        </div>
+
+      </div>
+      <div class="admin-modal-footer" style="border-top:1px solid var(--border-light); padding:1rem 1.5rem; display:flex; justify-content:flex-end; gap:10px;">
+        <button type="button" class="btn btn-dark" id="btn-close-techsheet-modal" style="border: 1px solid var(--border-light); color:var(--text-dark); background:transparent;">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btn-download-pdf-techsheet">Descargar Ficha PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast" id="toast-notification"></div>
+
+  <!-- Scripts -->
+  <script src="mockData.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/productos.js"></script>
+</body>
+</html>

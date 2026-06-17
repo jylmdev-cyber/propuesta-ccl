@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Consola de administración CMS para CCL Industrias Mecánicas.">
+  <title>CMS Administrativo - CCL MALLAS</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Font Awesome Free CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <!-- Admin CMS Portal Layout Container -->
+  <div class="admin-site active">
+    
+    <!-- Sidebar Overlay for mobile -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    
+    <!-- Sidebar Navigation -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="admin-sidebar-header" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div class="logo">
+          <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+          <div class="logo-text">
+            <span class="logo-title" style="color:var(--text-dark);">CMS CONTROL</span>
+            <span class="logo-subtitle" style="color:var(--primary-red);">CCL Industrias</span>
+          </div>
+        </div>
+        <button class="sidebar-close-btn" id="btn-close-sidebar" title="Cerrar">&times;</button>
+      </div>
+      
+      <ul class="admin-sidebar-nav">
+        <li class="admin-sidebar-link active" data-admin-tab="dashboard">
+          <i class="fa-solid fa-chart-pie"></i> Resumen
+        </li>
+        <li class="admin-sidebar-link" data-admin-tab="quotes">
+          <i class="fa-solid fa-file-invoice-dollar"></i> Cotizaciones
+        </li>
+        <li class="admin-sidebar-link" data-admin-tab="messages">
+          <i class="fa-solid fa-envelope-open-text"></i> Mensajes Web
+        </li>
+        <li class="admin-sidebar-link" data-admin-tab="products">
+          <i class="fa-solid fa-boxes-stacked"></i> Productos
+        </li>
+        <li class="admin-sidebar-link" data-admin-tab="settings">
+          <i class="fa-solid fa-cogs"></i> Configuración
+        </li>
+      </ul>
+
+      <div class="admin-sidebar-footer">
+        <button class="admin-sidebar-link" id="btn-back-to-public" style="width: 100%; border: none; background: transparent; justify-content: flex-start;">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Ver Web Pública
+        </button>
+        <button class="admin-sidebar-link" id="btn-logout" style="width: 100%; border: none; background: transparent; justify-content: flex-start; color: var(--primary-red); margin-top: 5px;">
+          <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Workspace Container -->
+    <main class="admin-main">
+      <!-- TopBar -->
+      <div class="admin-topbar">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+          <button class="toggle-sidebar-btn" id="btn-toggle-sidebar" title="Menu">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <h2 class="admin-topbar-title">Administrador General</h2>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+          <button class="toggle-btn" id="toggle-theme">🌙 Oscuro</button>
+          <div class="admin-topbar-user">
+            <div class="admin-user-avatar">A</div>
+            <span class="admin-user-name" style="font-weight: 500; color: var(--text-dark);">Administrador</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CMS View Panels -->
+      <div class="admin-content">
+        
+        <!-- CMS PANEL: DASHBOARD -->
+        <div class="admin-view-panel active" id="panel-dashboard">
+          
+          <!-- Critical Unattended Alerts Banner -->
+          <div class="dashboard-alert-banner" id="unattended-alerts-banner" style="display:none; margin-bottom: 1.5rem;">
+            <span id="alert-count-msg">⚠️ Tienes <strong>0 cotizaciones nuevas</strong> sin atender en bandeja.</span>
+            <button class="btn-alert-action" onclick="switchAdminTab('quotes')">Ver Solicitudes</button>
+          </div>
+
+          <!-- Adaptive 4-column Metrics Grid -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-info">
+                <span class="metric-label">Cotizaciones</span>
+                <span class="metric-value" id="stat-total-quotes">0</span>
+              </div>
+              <div class="metric-icon" style="color: var(--primary-blue);"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-info">
+                <span class="metric-label">Pendientes</span>
+                <span class="metric-value" id="stat-pending-quotes" style="color: var(--status-revision);">0</span>
+              </div>
+              <div class="metric-icon" style="color: var(--status-revision);"><i class="fa-solid fa-hourglass-half"></i></div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-info">
+                <span class="metric-label">Mensajes Recibidos</span>
+                <span class="metric-value" id="stat-pending-messages" style="color: var(--status-cotizada);">0</span>
+              </div>
+              <div class="metric-icon" style="color: var(--status-cotizada);"><i class="fa-solid fa-envelope"></i></div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-info">
+                <span class="metric-label">Fichas Descargadas</span>
+                <span class="metric-value" id="stat-pdf-downloads" style="color: var(--status-aprobada);">0</span>
+              </div>
+              <div class="metric-icon" style="color: var(--status-aprobada);"><i class="fa-solid fa-download"></i></div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <!-- Left Chart -->
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">
+                <h3 class="dashboard-card-title">Interés de Cotización por Categorías (Unidades)</h3>
+              </div>
+              <div class="chart-container" style="height:220px;">
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" id="bar-mallas-cuad"><span class="chart-bar-value" id="bar-mallas-cuad-val">0</span></div>
+                  <span class="chart-label">Cuadradas</span>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" id="bar-mallas-rect"><span class="chart-bar-value" id="bar-mallas-rect-val">0</span></div>
+                  <span class="chart-label">Rectangulares</span>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" id="bar-mallas-roll"><span class="chart-bar-value" id="bar-mallas-roll-val">0</span></div>
+                  <span class="chart-label">Rollos</span>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" id="bar-flex"><span class="chart-bar-value" id="bar-flex-val">0</span></div>
+                  <span class="chart-label">CCL-Flex</span>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" id="bar-poly"><span class="chart-bar-value" id="bar-poly-val">0</span></div>
+                  <span class="chart-label">Paneles</span>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" id="bar-access"><span class="chart-bar-value" id="bar-access-val">0</span></div>
+                  <span class="chart-label">Accesorios</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Conversion Funnel Chart -->
+            <div class="dashboard-card">
+              <div class="dashboard-card-header">
+                <h3 class="dashboard-card-title">Embudo Comercial de Conversión (Simulado)</h3>
+              </div>
+              <div class="funnel-container">
+                <div class="funnel-row">
+                  <span class="funnel-label">Visitas</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar-fill" id="funnel-visitas" style="width:100%;">2500</div></div>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Búsquedas</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar-fill" id="funnel-busquedas" style="width:72%;">1800</div></div>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Cotizador</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar-fill" id="funnel-cotizador" style="width:18%;">450</div></div>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Enviados</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar-fill" id="funnel-enviados" style="width:5%; background:rgba(0, 115, 198, 0.7)">0</div></div>
+                </div>
+                <div class="funnel-row">
+                  <span class="funnel-label">Aprobados</span>
+                  <div class="funnel-bar-wrap"><div class="funnel-bar-fill" id="funnel-aprobados" style="width:0%; background:var(--status-aprobada)">0</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Technical Library Downloads Analytics Card -->
+          <div class="dashboard-card" style="margin-top:2rem;">
+            <div class="dashboard-card-header" style="display:flex; justify-content:space-between; align-items:center;">
+              <h3 class="dashboard-card-title">Descargas Técnicas de Catálogo y Fichas</h3>
+              <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;"><i class="fa-solid fa-file-pdf"></i> Biblioteca Comercial</span>
+            </div>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:1.5rem; margin-top:1.25rem;" id="dashboard-downloads-list">
+              <!-- Dynamically populated PDF download bars -->
+            </div>
+          </div>
+
+          <!-- Recent Activities table inside dashboard -->
+          <div class="dashboard-card" style="margin-top:2rem;">
+            <div class="dashboard-card-header">
+              <h3 class="dashboard-card-title">Últimas Solicitudes Recibidas</h3>
+            </div>
+            <div class="table-container" style="border:none;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Cliente</th>
+                    <th>Empresa</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-quotes">
+                  <!-- Loaded dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- CMS PANEL: PRODUCTS (CRUD) -->
+        <div class="admin-view-panel" id="panel-products">
+          <div class="admin-actions-row">
+            <h3 style="color:var(--text-dark); font-weight:600;">Catálogo de Productos</h3>
+            <button class="btn btn-primary" id="btn-add-product">
+              <i class="fa-solid fa-plus"></i> Agregar Producto
+            </button>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Nombre Producto</th>
+                  <th>Categoría</th>
+                  <th>Material</th>
+                  <th>Abertura</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="admin-products-tbody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CMS PANEL: QUOTES LOG -->
+        <div class="admin-view-panel" id="panel-quotes">
+          <div class="admin-actions-row" style="flex-wrap: wrap; gap:1rem;">
+            <h3 style="color:var(--text-dark); font-weight:600; margin:0;">Bandeja de Solicitudes de Cotización</h3>
+            
+            <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; width:100%; max-width:600px;">
+              <div style="position:relative; flex-grow:1;">
+                <input type="text" id="search-quotes" placeholder="Buscar por RUC, Empresa o Cliente..." style="padding:0.55rem 0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark); font-size:0.85rem; width:100%;">
+              </div>
+              <select id="filter-quote-status" style="padding:0.55rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark); font-size:0.85rem; width:170px;">
+                <option value="all">Todos los Estados</option>
+                <option value="Nueva">Nueva</option>
+                <option value="En revisión">En revisión</option>
+                <option value="Información incompleta">Información incompleta</option>
+                <option value="Cotizada">Cotizada</option>
+                <option value="En negociación">En negociación</option>
+                <option value="Aprobada">Aprobada</option>
+                <option value="Rechazada">Rechazada</option>
+                <option value="Cerrada">Cerrada</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Folio</th>
+                  <th>Cliente / Empresa</th>
+                  <th>Contacto</th>
+                  <th>Fecha Registro</th>
+                  <th>Estado</th>
+                  <th>Detalle</th>
+                </tr>
+              </thead>
+              <tbody id="admin-quotes-tbody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CMS PANEL: CONTACT MESSAGES -->
+        <div class="admin-view-panel" id="panel-messages">
+          <div class="admin-actions-row">
+            <h3 style="color:var(--text-dark); font-weight:600; margin:0;">Mensajes y Consultas de Contacto</h3>
+          </div>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Empresa / Teléfono</th>
+                  <th>Asunto</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Acción</th>
+                </tr>
+              </thead>
+              <tbody id="admin-messages-tbody">
+                <!-- Dynamically loaded -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CMS PANEL: SITE SETTINGS -->
+        <div class="admin-view-panel" id="panel-settings">
+          <div class="admin-actions-row">
+            <h3 style="color:var(--text-dark); font-weight:600;">Configuraciones de la Empresa</h3>
+          </div>
+
+          <div class="dashboard-card" style="max-width: 650px;">
+            <form id="form-config" style="display: flex; flex-direction: column; gap: 1.25rem;">
+              <div class="form-group">
+                <label>Número Celular Comercial (WhatsApp) *</label>
+                <input type="text" id="cfg-phone" required placeholder="+51 999 999 999">
+              </div>
+              <div class="form-group">
+                <label>Teléfonos Fijos (Planta)</label>
+                <input type="text" id="cfg-landline" placeholder="(+51) 548 4544">
+              </div>
+              <div class="form-group">
+                <label>Correo Electrónico Comercial *</label>
+                <input type="email" id="cfg-email" required placeholder="ventas@empresa.com">
+              </div>
+              <div class="form-group">
+                <label>Dirección de la Planta / Oficinas *</label>
+                <input type="text" id="cfg-address" required placeholder="Calle, Distrito, Lima, Perú">
+              </div>
+              <div class="form-group">
+                <label>Horario de Atención Comercial</label>
+                <input type="text" id="cfg-hours" placeholder="Lunes a Viernes de 8AM a 6PM...">
+              </div>
+              <button class="btn btn-primary" type="submit" style="width: 150px; margin-top: 1rem;">Guardar Cambios</button>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal: Create / Edit Product -->
+  <div class="admin-modal" id="modal-product">
+    <div class="admin-modal-card">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" id="modal-product-title">Agregar Nuevo Producto</h3>
+        <button class="btn-modal-close" id="btn-close-product-modal">&times;</button>
+      </div>
+      <form id="form-product">
+        <div class="admin-modal-body" style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div class="form-group">
+            <label>Nombre del Producto *</label>
+            <input type="text" id="p-name" required placeholder="Ej. Malla Cuadrada 1/2 pulgada">
+          </div>
+          <div class="form-group">
+            <label>Categoría *</label>
+            <select id="p-category" required>
+              <option value="mallas-cuadradas">Mallas Cuadradas</option>
+              <option value="mallas-rectangulares">Mallas Rectangulares</option>
+              <option value="mallas-rollos">Mallas en Rollos</option>
+              <option value="ccl-flex">Sistemas CCL-Flex</option>
+              <option value="paneles-poliuretano">Paneles de Poliuretano</option>
+              <option value="accesorios">Accesorios</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Material Utilizado *</label>
+            <input type="text" id="p-material" required placeholder="Ej. Acero SAE 1070 Templado o Poliuretano 90 Shore A">
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Rango de Aberturas *</label>
+              <input type="text" id="p-aperture" required placeholder="Ej. 2mm a 100mm">
+            </div>
+            <div class="form-group">
+              <label>Diámetro del Alambre (Espesor)</label>
+              <input type="text" id="p-diameter" placeholder="Ej. 1.2mm a 12.7mm (N/A si es panel)">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Descripción Técnica / Detalles *</label>
+            <textarea id="p-desc" rows="4" required placeholder="Detalla el uso, beneficios y aplicaciones del producto..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Imagen del Catálogo</label>
+            <div class="image-presets-grid">
+              <div class="image-preset-option selected" data-preset="assets/steel_wire_mesh.png">
+                <img src="assets/steel_wire_mesh.png" alt="Mallas">
+              </div>
+              <div class="image-preset-option" data-preset="assets/polyurethane_panel.png">
+                <img src="assets/polyurethane_panel.png" alt="Poliuretano">
+              </div>
+              <div class="image-preset-option" data-preset="assets/ccl_flex_screen.png">
+                <img src="assets/ccl_flex_screen.png" alt="Flex">
+              </div>
+              <div class="image-preset-option" data-preset="assets/mounting_accessories.png">
+                <img src="assets/mounting_accessories.png" alt="Accesorios">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-dark" id="btn-cancel-product-modal" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border-light);">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar Producto</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: View Quote Details & Change Status -->
+  <div class="admin-modal" id="modal-quote-detail">
+    <div class="admin-modal-card" style="max-width: 650px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" style="color:var(--text-dark);">Detalle de Cotización Registrada</h3>
+        <button class="btn-modal-close" id="btn-close-quote-modal">&times;</button>
+      </div>
+      <form id="form-quote-edit">
+        <div class="admin-modal-body" style="display: flex; flex-direction: column; gap: 1.25rem; max-height:70vh; overflow-y:auto;">
+          
+          <!-- Client Details Card -->
+          <div style="background: var(--bg-light); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding:1.25rem; display:grid; grid-template-columns: 1fr 1fr; gap:0.75rem; font-size:0.85rem; color: var(--text-dark);">
+            <div><strong style="color:var(--text-muted)">Cliente:</strong> <span id="mq-client" style="font-weight:600;"></span></div>
+            <div><strong style="color:var(--text-muted)">Empresa:</strong> <span id="mq-company" style="font-weight:600;"></span></div>
+            <div><strong style="color:var(--text-muted)">RUC:</strong> <span id="mq-ruc"></span></div>
+            <div><strong style="color:var(--text-muted)">Celular:</strong> <span id="mq-phone"></span></div>
+            <div><strong style="color:var(--text-muted)">Correo:</strong> <span id="mq-email"></span></div>
+            <div><strong style="color:var(--text-muted)">Ubicación Obra:</strong> <span id="mq-dept"></span></div>
+            <div style="grid-column: 1/-1;"><strong style="color:var(--text-muted)">Fecha Registro:</strong> <span id="mq-date"></span></div>
+          </div>
+
+          <!-- Message -->
+          <div class="form-group">
+            <label>Mensaje Adicional del Cliente</label>
+            <p style="background: var(--bg-light); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:0.75rem; font-size:0.85rem; color:var(--text-dark); white-space:pre-wrap;" id="mq-message"></p>
+          </div>
+
+          <!-- Items specs requested -->
+          <div class="form-group">
+            <label>Especificaciones y Requerimiento Técnico</label>
+            <div class="table-container" style="border: 1px solid var(--border-light);">
+              <table style="font-size:0.82rem;">
+                <tbody id="modal-quote-specs-tbody">
+                  <!-- Loaded dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Attached Files -->
+          <div class="form-group">
+            <label>Planos / Documentos Adjuntos</label>
+            <div id="modal-quote-files-list" style="display:flex; flex-direction:column; gap:6px;">
+              <!-- File links populated dynamically -->
+            </div>
+          </div>
+
+          <hr style="border:0; border-top: 1px solid var(--border-light);">
+
+          <!-- Commercial Negotiation Status (8 Stages) -->
+          <div class="grid-2">
+            <div class="form-group">
+              <label>Etapa Comercial *</label>
+              <select id="mq-status" required>
+                <option value="Nueva">Nueva</option>
+                <option value="En revisión">En revisión</option>
+                <option value="Información incompleta">Información incompleta</option>
+                <option value="Cotizada">Cotizada</option>
+                <option value="En negociación">En negociación</option>
+                <option value="Aprobada">Aprobada</option>
+                <option value="Rechazada">Rechazada</option>
+                <option value="Cerrada">Cerrada</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Responsable Comercial</label>
+              <input type="text" id="mq-com" placeholder="Ej. Ing. Héctor Vargas">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Bitácora de Negociación / Notas de Seguimiento Interno</label>
+            <textarea id="mq-notes" rows="3" placeholder="Registra llamadas con el cliente, precios acordados, fecha de entrega del presupuesto, etc..."></textarea>
+          </div>
+
+        </div>
+        <div class="admin-modal-footer">
+          <button type="button" class="btn btn-dark" id="btn-cancel-quote-modal" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border-light);">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: View Contact Message Details -->
+  <div class="admin-modal" id="modal-message-detail">
+    <div class="admin-modal-card" style="max-width: 550px;">
+      <div class="admin-modal-header">
+        <h3 class="admin-modal-title" style="color:var(--text-dark);">Detalle de Mensaje de Contacto</h3>
+        <button class="btn-modal-close" id="btn-close-message-modal">&times;</button>
+      </div>
+      <div class="admin-modal-body" style="display: flex; flex-direction: column; gap: 1.25rem;">
+        
+        <div style="background: var(--bg-light); border: 1px solid var(--border-light); border-radius: var(--radius-sm); padding:1rem; display:grid; grid-template-columns: 1fr; gap:0.5rem; font-size:0.85rem; color:var(--text-dark);">
+          <div><strong style="color:var(--text-muted)">Remitente:</strong> <span id="mmsg-name" style="font-weight:600;"></span></div>
+          <div><strong style="color:var(--text-muted)">Empresa:</strong> <span id="mmsg-company" style="font-weight:600;"></span></div>
+          <div><strong style="color:var(--text-muted)">Correo:</strong> <span id="mmsg-email"></span></div>
+          <div><strong style="color:var(--text-muted)">Celular:</strong> <span id="mmsg-phone"></span></div>
+          <div><strong style="color:var(--text-muted)">Fecha Envío:</strong> <span id="mmsg-date"></span></div>
+        </div>
+
+        <div class="form-group">
+          <label>Asunto</label>
+          <p style="font-weight:700; color:var(--text-dark); margin:0;" id="mmsg-subject"></p>
+        </div>
+
+        <div class="form-group">
+          <label>Contenido del Mensaje</label>
+          <p style="background: var(--bg-light); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:0.75rem; font-size:0.85rem; color:var(--text-dark); white-space:pre-wrap;" id="mmsg-body"></p>
+        </div>
+
+      </div>
+      <div class="admin-modal-footer">
+        <button type="button" class="btn btn-dark" id="btn-cancel-message-modal" style="background: transparent; color: var(--text-dark); border: 1px solid var(--border-light);">Cerrar</button>
+        <button type="button" class="btn btn-primary" id="btn-mark-read-message">Marcar como Leído</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Login Overlay Modal -->
+  <div class="admin-login-overlay" id="admin-login-overlay">
+    <div class="admin-login-card">
+      <div class="admin-login-header">
+        <div class="logo" style="justify-content: center; margin-bottom: 1.5rem;">
+          <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+          <div class="logo-text">
+            <span class="logo-title">CCL MALLAS</span>
+            <span class="logo-subtitle">Garantía, Buen Servicio</span>
+          </div>
+        </div>
+        <h2 class="admin-login-title">Panel Administrativo</h2>
+        <p class="admin-login-desc">Ingresa tus credenciales para administrar la web</p>
+      </div>
+      <form class="admin-login-form" id="form-admin-login">
+        <div class="admin-login-error" id="login-error-msg">Usuario o contraseña incorrectos.</div>
+        <div class="form-group">
+          <label>Usuario</label>
+          <input type="text" id="login-username" required placeholder="admin" value="admin">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="login-password" required placeholder="••••••••" value="admin123">
+        </div>
+        <button class="btn btn-primary" type="submit" style="width: 100%; margin-top: 1rem;">Iniciar Sesión</button>
+        <a href="index.html" class="btn btn-outline" style="width: 100%; text-align:center;">Cancelar y Volver</a>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast" id="toast-notification"></div>
+
+  <!-- Scripts -->
+  <script src="mockData.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/admin.js"></script>
+  <script>
+    // Overriding the default back-to-public behaviour in js/admin.js (which expects SPA toggling)
+    document.addEventListener("DOMContentLoaded", () => {
+      const btnBackPublic = document.getElementById("btn-back-to-public");
+      if (btnBackPublic) {
+        btnBackPublic.addEventListener("click", (e) => {
+          e.stopImmediatePropagation();
+          location.href = "index.html";
+        }, true);
+      }
+    });
+  </script>
+</body>
+</html>

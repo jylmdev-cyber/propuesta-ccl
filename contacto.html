@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Formulario de contacto y localización de la planta industrial de CCL Industrias Mecánicas S.A.C.">
+  <title>Contacto y Planta - CCL MALLAS</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Pulse micro-animation for the map pin */
+    .map-pulse {
+      position: absolute;
+      width: 44px;
+      height: 44px;
+      background: rgba(227, 6, 19, 0.25);
+      border-radius: 50%;
+      animation: mapPulse 2s infinite ease-out;
+      pointer-events: none;
+      z-index: 1;
+      transform-origin: center;
+    }
+    @keyframes mapPulse {
+      0% { transform: scale(0.4); opacity: 1; }
+      100% { transform: scale(2.2); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+        <div class="logo-text">
+          <span class="logo-title">CCL MALLAS</span>
+          <span class="logo-subtitle">Garantía, Buen Servicio</span>
+        </div>
+      </a>
+      <nav>
+        <a href="index.html" class="nav-link" data-translate="nav_home">Inicio</a>
+        <a href="productos.html" class="nav-link" data-translate="nav_products">Productos</a>
+        <a href="contacto.html" class="nav-link active" data-translate="nav_contact">Contacto</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="toggle-btn" id="toggle-language">🌐 EN</button>
+        <button class="toggle-btn" id="toggle-theme">🌙 Oscuro</button>
+        <a href="admin.html" class="btn btn-outline" data-translate="btn_admin">Panel Admin</a>
+        <a href="cotizar.html" class="btn btn-secondary" data-translate="btn_request_quote">Solicitar Cotización</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Contact main view -->
+  <section class="contact-section" style="margin-top: 5rem; padding-top: 4rem;">
+    <div class="section-header">
+      <h1 class="section-title" data-translate="nav_contact">Contacto y Ubicación</h1>
+      <p class="section-subtitle">Estamos a tu disposición para cotizaciones técnicas, visitas a planta o asesoría técnica directa en tus operaciones de clasificación de mineral.</p>
+    </div>
+
+    <div class="contact-container">
+      
+      <!-- Left side: Contact details and interactive map -->
+      <div class="contact-details">
+        
+        <!-- Contact cards (sourcing values from database) -->
+        <div class="contact-info-card">
+          <div class="contact-info-icon" data-icon="mapPin"></div>
+          <div>
+            <h4 class="contact-info-title">Nuestra Planta Industrial</h4>
+            <p class="contact-info-text" id="contact-address">Cargando dirección...</p>
+          </div>
+        </div>
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon" data-icon="phone"></div>
+          <div>
+            <h4 class="contact-info-title">Líneas de Atención</h4>
+            <p class="contact-info-text">
+              <strong>Celular:</strong> <span id="contact-phone">Cargando...</span><br>
+              <strong>Central Telefónica:</strong> <span id="contact-landline">Cargando...</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon" data-icon="mail"></div>
+          <div>
+            <h4 class="contact-info-title">Correo Electrónico</h4>
+            <p class="contact-info-text" id="contact-email">Cargando correo...</p>
+          </div>
+        </div>
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon" data-icon="clock"></div>
+          <div>
+            <h4 class="contact-info-title">Horario de Atención</h4>
+            <p class="contact-info-text" id="contact-hours">Cargando horario...</p>
+          </div>
+        </div>
+
+        <!-- Interactive Map Mock -->
+        <div class="contact-map-mock">
+          <div class="map-placeholder-bg" style="background-image: radial-gradient(var(--border-light) 1px, transparent 1px); background-size: 20px 20px;">
+            <!-- Grid lines inside map for blueprint industrial look -->
+            <div style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; flex-direction:column; justify-content:space-around; opacity:0.1; pointer-events:none;">
+              <hr style="border-top: 1px solid var(--text-dark); margin:0;">
+              <hr style="border-top: 1px solid var(--text-dark); margin:0;">
+              <hr style="border-top: 1px solid var(--text-dark); margin:0;">
+            </div>
+            <div style="position: absolute; top:0; left:0; width:100%; height:100%; display:flex; justify-content:space-around; opacity:0.1; pointer-events:none;">
+              <div style="border-left: 1px solid var(--text-dark); height:100%;"></div>
+              <div style="border-left: 1px solid var(--text-dark); height:100%;"></div>
+              <div style="border-left: 1px solid var(--text-dark); height:100%;"></div>
+            </div>
+
+            <!-- Pulsing Map Marker -->
+            <div class="map-marker" style="top: 45%; left: 50%; transform: translate(-50%, -50%);">
+              <div style="position: relative;">
+                <div class="map-pulse"></div>
+                <div class="map-marker-pin" style="position: relative; z-index: 2;"></div>
+              </div>
+              <div class="map-marker-label">CCL MALLAS - Planta Puente Piedra</div>
+            </div>
+            
+            <!-- External link button -->
+            <a href="https://maps.google.com/?q=Calle+2+N+228+Puente+Piedra+Lima" target="_blank" class="btn btn-dark" style="position: absolute; bottom: 12px; right: 12px; font-size: 0.78rem; padding: 0.4rem 0.8rem;">
+              Ver en Google Maps <span data-icon="externalLink" style="display:inline-flex; width:14px; height:14px;"></span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right side: Message form -->
+      <div style="background: var(--card-light); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 3rem; box-shadow: var(--shadow-md);">
+        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color:var(--text-dark);">Envíanos un Mensaje</h3>
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:2rem;">Completa el formulario y un asesor comercial del sector de minería o agregados te responderá en menos de 2 horas hábiles.</p>
+        
+        <form id="contact-form-submit" style="display:flex; flex-direction:column; gap:1.25rem;">
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <label for="c-name" style="font-weight:600; font-size:0.88rem;">Nombre Completo *</label>
+            <input type="text" id="c-name" placeholder="Ej. Carlos Mendoza" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <label for="c-company" style="font-weight:600; font-size:0.88rem;">Empresa *</label>
+            <input type="text" id="c-company" placeholder="Ej. Minera Las Bambas" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+          </div>
+
+          <div style="display:flex; grid-template-columns:1fr 1fr; gap:1rem;">
+            <div style="display:flex; flex-direction:column; gap:0.5rem; flex-grow:1;">
+              <label for="c-email" style="font-weight:600; font-size:0.88rem;">Correo Electrónico *</label>
+              <input type="email" id="c-email" placeholder="carlos@empresa.com" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem; flex-grow:1;">
+              <label for="c-phone" style="font-weight:600; font-size:0.88rem;">Teléfono / Celular *</label>
+              <input type="tel" id="c-phone" placeholder="987654321" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <label for="c-subject" style="font-weight:600; font-size:0.88rem;">Asunto *</label>
+            <select id="c-subject" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+              <option value="cotizacion">Cotización de Mallas / Paneles</option>
+              <option value="visita">Solicitud de Asesoría en Planta</option>
+              <option value="soporte">Soporte Técnico Post-Venta</option>
+              <option value="otro">Otro Requerimiento</option>
+            </select>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <label for="c-message" style="font-weight:600; font-size:0.88rem;">Mensaje / Detalles Técnicos *</label>
+            <textarea id="c-message" rows="4" placeholder="Describe brevemente tus requerimientos, dimensiones de zaranda, tipo de material..." style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark); resize:vertical;" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-secondary" style="width:100%; padding:0.85rem; margin-top:0.5rem;">Enviar Mensaje</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom: 1rem;">
+          <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+          <div class="logo-text">
+            <span class="logo-title">CCL MALLAS</span>
+            <span class="logo-subtitle">Garantía, Buen Servicio</span>
+          </div>
+        </div>
+        <p class="footer-brand-desc">Líderes peruanos en soluciones de cribado, mallas metálicas y paneles modulares para operaciones mineras y canteras a nivel nacional.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegación</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="contacto.html">Contacto y Planta</a></li>
+          <li><a href="admin.html">Ingreso Administrativo (CMS)</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Datos de Contacto</h4>
+        <ul class="footer-contact-list">
+          <li><span class="footer-contact-icon" data-icon="mapPin"></span><span id="footer-address">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="phone"></span><span id="footer-phone">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="mail"></span><span id="footer-email">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="clock"></span><span id="footer-hours">Cargando...</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 CCL Industrias Mecánicas S.A.C. Todos los derechos reservados.</p>
+      <p>Propuesta de Diseño Web Moderno y CMS Administrativo</p>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast" id="toast-notification"></div>
+
+  <!-- Scripts -->
+  <script src="mockData.js"></script>
+  <script src="js/shared.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("contact-form-submit");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const name = document.getElementById("c-name").value;
+          const company = document.getElementById("c-company").value;
+          const email = document.getElementById("c-email").value;
+          const phone = document.getElementById("c-phone").value;
+          const subjectVal = document.getElementById("c-subject").value;
+          const message = document.getElementById("c-message").value;
+
+          const messages = typeof getContactMessages === 'function' ? getContactMessages() : (JSON.parse(localStorage.getItem("ccl_contact_messages")) || []);
+          const newMsg = {
+            id: "msg-" + Date.now(),
+            name,
+            company,
+            email,
+            phone,
+            subject: subjectVal === "cotizacion" ? "Cotización de Mallas / Paneles" :
+                     subjectVal === "visita" ? "Solicitud de Asesoría en Planta" :
+                     subjectVal === "soporte" ? "Soporte Técnico Post-Venta" : "Otro Requerimiento",
+            message,
+            date: new Date().toISOString(),
+            status: "Pendiente"
+          };
+          messages.unshift(newMsg);
+          if (typeof saveContactMessages === 'function') {
+            saveContactMessages(messages);
+          } else {
+            localStorage.setItem("ccl_contact_messages", JSON.stringify(messages));
+          }
+
+          showToast(currentLanguage === "es" ? "¡Mensaje recibido! Nos comunicaremos en breve." : "Message received! We will contact you shortly.", "success");
+          form.reset();
+        });
+      }
+    });
+  </script>
+</body>
+</html>

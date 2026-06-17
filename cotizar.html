@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cotizador técnico industrial interactivo paso a paso para mallas de zarandas vibratorias.">
+  <title>Solicitar Cotización - CCL MALLAS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+        <div class="logo-text">
+          <span class="logo-title">CCL MALLAS</span>
+          <span class="logo-subtitle">Garantía, Buen Servicio</span>
+        </div>
+      </a>
+      <nav>
+        <a href="index.html" class="nav-link" data-translate="nav_home">Inicio</a>
+        <a href="productos.html" class="nav-link" data-translate="nav_products">Productos</a>
+        <a href="contacto.html" class="nav-link" data-translate="nav_contact">Contacto</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="toggle-btn" id="toggle-language">🌐 EN</button>
+        <button class="toggle-btn" id="toggle-theme">🌙 Oscuro</button>
+        <a href="admin.html" class="btn btn-outline" data-translate="btn_admin">Panel Admin</a>
+        <a href="cotizar.html" class="btn btn-secondary" data-translate="btn_request_quote">Solicitar Cotización</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Wizard container -->
+  <main style="max-width: 900px; margin: 8rem auto 4rem; padding: 0 2rem; min-height: 70vh;">
+    <div style="background: var(--card-light); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 3rem; box-shadow: var(--shadow-lg);">
+      
+      <!-- Tracker Navigation Header -->
+      <div class="wizard-steps-tracker">
+        <div class="wizard-tracker-progress" id="wizard-tracker-progress"></div>
+        
+        <div class="wizard-step-node active" data-step="1">
+          <div class="wizard-step-circle">1</div>
+          <span class="wizard-step-label">Producto</span>
+        </div>
+        <div class="wizard-step-node" data-step="2">
+          <div class="wizard-step-circle">2</div>
+          <span class="wizard-step-label">Medidas</span>
+        </div>
+        <div class="wizard-step-node" data-step="3">
+          <div class="wizard-step-circle">3</div>
+          <span class="wizard-step-label">Operación</span>
+        </div>
+        <div class="wizard-step-node" data-step="4">
+          <div class="wizard-step-circle">4</div>
+          <span class="wizard-step-label">Planos</span>
+        </div>
+        <div class="wizard-step-node" data-step="5">
+          <div class="wizard-step-circle">5</div>
+          <span class="wizard-step-label">Cliente</span>
+        </div>
+      </div>
+
+      <!-- Main form -->
+      <form id="form-wizard" style="margin-top: 2rem;">
+        
+        <!-- STEP 1: Product Category Selection -->
+        <div class="wizard-step-panel active" data-step="1">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="color:var(--text-dark); font-size:1.75rem; margin-bottom:0.5rem;">Paso 1: Selecciona el Tipo de Producto</h2>
+            <p style="color:var(--text-muted); font-size:0.95rem;">Elige la categoría de cribado que necesitas cotizar para tu planta.</p>
+          </div>
+
+          <div class="wizard-selection-grid">
+            <div class="wizard-selector-card" data-value="mallas-cuadradas">
+              <span style="font-size: 2rem;">⏹</span>
+              <div class="wizard-selector-title">Mallas Cuadradas</div>
+              <div class="wizard-selector-desc">Para granulometría estándar de gruesos y áridos.</div>
+            </div>
+
+            <div class="wizard-selector-card" data-value="mallas-rectangulares">
+              <span style="font-size: 2rem;">▤</span>
+              <div class="wizard-selector-title">Mallas Rectangulares</div>
+              <div class="wizard-selector-desc">Slot largo anti-colmatación para materiales elongados.</div>
+            </div>
+
+            <div class="wizard-selector-card" data-value="mallas-rollos">
+              <span style="font-size: 2rem;">🧻</span>
+              <div class="wizard-selector-title">Mallas en Rollos</div>
+              <div class="wizard-selector-desc">Mallas tejidas de bajo diámetro provistas en rollos continuos.</div>
+            </div>
+
+            <div class="wizard-selector-card" data-value="ccl-flex">
+              <span style="font-size: 2rem;">〰</span>
+              <div class="wizard-selector-title">Sistemas CCL-Flex</div>
+              <div class="wizard-selector-desc">Mallas autolimpiantes vibratorias de alta eficiencia.</div>
+            </div>
+
+            <div class="wizard-selector-card" data-value="paneles-poliuretano">
+              <span style="font-size: 2rem;">🟨</span>
+              <div class="wizard-selector-title">Paneles de Poliuretano</div>
+              <div class="wizard-selector-desc">Paneles modulares de larga duración (pin, manga, clip).</div>
+            </div>
+
+            <div class="wizard-selector-card" data-value="accesorios">
+              <span style="font-size: 2rem;">🔧</span>
+              <div class="wizard-selector-title">Accesorios de Fijación</div>
+              <div class="wizard-selector-desc">Cuñas de madera, perfiles omega de caucho y pernos J/T.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Medidas y Especificaciones -->
+        <div class="wizard-step-panel" data-step="2">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="color:var(--text-dark); font-size:1.75rem; margin-bottom:0.5rem;" id="wizard-spec-title">Paso 2: Especificaciones Técnicas</h2>
+            <p style="color:var(--text-muted); font-size:0.95rem;">Ingresa las medidas y configuraciones necesarias para la fabricación.</p>
+          </div>
+
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-length" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Largo del Panel (L) *</label>
+              <input type="text" id="w-length" placeholder="Ej. 2.40 m o 304.8 mm" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-width" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Ancho del Panel (W) *</label>
+              <input type="text" id="w-width" placeholder="Ej. 1.50 m o 304.8 mm" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-top:1.25rem;">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-aperture" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Abertura / Luz de Malla (A) *</label>
+              <input type="text" id="w-aperture" placeholder="Ej. 12.7 mm (1/2&quot;) o 16 mm" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-qty" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Cantidad Solicitada *</label>
+              <input type="number" id="w-qty" min="1" placeholder="Ej. 10" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+          </div>
+
+          <!-- Conditional metal wire inputs -->
+          <div class="grid-3" id="wizard-wire-only-inputs" style="margin-top:1.25rem; display:none;">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-diameter" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Diámetro de Alambre (D)</label>
+              <input type="text" id="w-diameter" placeholder="Ej. 4.76 mm (3/16&quot;)" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-crimping" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Tipo de Ondulado</label>
+              <select id="w-crimping" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+                <option value="N/A">Seleccionar...</option>
+                <option value="Doble Ondulado">Doble Ondulado</option>
+                <option value="Cara Plana (Flat Top)">Cara Plana (Flat Top)</option>
+                <option value="Ondulado Intermedio">Ondulado Intermedio</option>
+                <option value="Lock Crimp">Cerrojo (Lock Crimp)</option>
+              </select>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-hook" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Acabado de Gancho</label>
+              <select id="w-hook" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+                <option value="N/A">Seleccionar...</option>
+                <option value="Gancho simple 45°">Gancho simple 45°</option>
+                <option value="Gancho reforzado plancha">Gancho reforzado plancha</option>
+                <option value="Borde de goma protector">Borde de goma protector</option>
+                <option value="Sin ganchos (Plano)">Sin ganchos (Plano)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Condiciones Operacionales -->
+        <div class="wizard-step-panel" data-step="3">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="color:var(--text-dark); font-size:1.75rem; margin-bottom:0.5rem;">Paso 3: Condiciones Operacionales (Opcional)</h2>
+            <p style="color:var(--text-muted); font-size:0.95rem;">Danos detalles de la planta para que ingeniería comercial valide la resistencia del producto.</p>
+          </div>
+
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-material" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Material Procesado</label>
+              <input type="text" id="w-material" placeholder="Ej. Caliza, mineral de oro, grava, sílice" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-tph" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Flujo de Operación (TPH)</label>
+              <input type="text" id="w-tph" placeholder="Ej. 250 TPH" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-top:1.25rem;">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-operation" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Proceso de Clasificación</label>
+              <select id="w-operation" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+                <option value="Seca">Operación en Seco</option>
+                <option value="Húmeda">Operación Húmeda (Lavado/Desaguado)</option>
+              </select>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-abrasion" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Nivel de Abrasión</label>
+              <select id="w-abrasion" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+                <option value="Media">Media</option>
+                <option value="Alta">Alta</option>
+                <option value="Extrema">Extrema / Impacto Severo</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 4: Subida de Planos y Archivos -->
+        <div class="wizard-step-panel" data-step="4">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="color:var(--text-dark); font-size:1.75rem; margin-bottom:0.5rem;">Paso 4: Adjuntar Planos Técnicos (Opcional)</h2>
+            <p style="color:var(--text-muted); font-size:0.95rem;">Sube planos de la zaranda (PDF, DXF, XLSX o imágenes) para fabricaciones especiales a medida.</p>
+          </div>
+
+          <!-- Drag and drop zone -->
+          <div class="drag-drop-zone" id="drag-drop-zone">
+            <span style="font-size: 3rem; display:block; margin-bottom:0.5rem;">📁</span>
+            <p style="font-size:1.05rem; font-weight:600; color:var(--text-dark); margin-bottom:0.25rem;">Arrastra tus archivos aquí o haz clic para buscarlos</p>
+            <p style="font-size:0.8rem; color:var(--text-muted);">Soporta formatos técnicos hasta 15MB por archivo.</p>
+            <input type="file" id="w-file-input" style="display:none;" multiple>
+          </div>
+
+          <div class="attached-files-list" id="wizard-files-list">
+            <!-- Dynamically populated files list -->
+          </div>
+        </div>
+
+        <!-- STEP 5: Datos del Cliente -->
+        <div class="wizard-step-panel" data-step="5">
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <h2 style="color:var(--text-dark); font-size:1.75rem; margin-bottom:0.5rem;">Paso 5: Información del Cliente</h2>
+            <p style="color:var(--text-muted); font-size:0.95rem;">Completa tus datos corporativos para emitir la cotización formal.</p>
+          </div>
+
+          <div class="grid-2">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-company" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Razón Social / Empresa *</label>
+              <input type="text" id="w-company" placeholder="Ej. Minera Chinalco Perú S.A." style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-ruc" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">RUC (Opcional)</label>
+              <input type="text" id="w-ruc" placeholder="Ej. 20123456789" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);">
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-top:1.25rem;">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-contact" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Contacto / Nombre del Ingeniero *</label>
+              <input type="text" id="w-contact" placeholder="Ej. Ing. Juan Falconi" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-dept" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Departamento / Operación *</label>
+              <select id="w-dept" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+                <option value="">Selecciona departamento...</option>
+                <option value="Lima">Lima</option>
+                <option value="Arequipa">Arequipa</option>
+                <option value="Apurímac">Apurímac</option>
+                <option value="Áncash">Áncash</option>
+                <option value="Cajamarca">Cajamarca</option>
+                <option value="Cusco">Cusco</option>
+                <option value="Junín">Junín</option>
+                <option value="La Libertad">La Libertad</option>
+                <option value="Moquegua">Moquegua</option>
+                <option value="Pasco">Pasco</option>
+                <option value="Puno">Puno</option>
+                <option value="Tacna">Tacna</option>
+                <option value="Otro">Otro (Extranjero / Nacional)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-top:1.25rem;">
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-email" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Correo Electrónico *</label>
+              <input type="email" id="w-email" placeholder="juan.falconi@chinalco.com.pe" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:0.5rem;">
+              <label for="w-phone" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Teléfono / Celular Directo *</label>
+              <input type="tel" id="w-phone" placeholder="Ej. 987654321" style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark);" required>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-direction:column; gap:0.5rem; margin-top:1.25rem;">
+            <label for="w-message-notes" style="font-weight:600; font-size:0.85rem; color:var(--text-dark);">Mensaje Adicional o Notas Especiales</label>
+            <textarea id="w-message-notes" rows="3" placeholder="Ingresa especificaciones especiales, marcas de zarandas (Metso, Sandvik, Haver & Boecker) o plazos requeridos..." style="width:100%; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid var(--border-light); background:var(--bg-light); color:var(--text-dark); resize:vertical;"></textarea>
+          </div>
+        </div>
+
+        <!-- Wizard controls buttons -->
+        <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-light); padding-top:2rem; margin-top:2.5rem;">
+          <button class="btn btn-outline" type="button" id="wizard-prev" style="display:none;">
+            ← Atrás
+          </button>
+          <!-- Dummy spacer to align next button right if prev is hidden -->
+          <div style="flex-grow:1;"></div>
+          <button class="btn btn-primary" type="button" id="wizard-next" style="background-color: var(--primary-blue); font-weight:700;">
+            Siguiente →
+          </button>
+        </div>
+
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo" style="margin-bottom: 1rem;">
+          <div class="logo-icon"><span class="logo-c">cc</span><span class="logo-l">l</span></div>
+          <div class="logo-text">
+            <span class="logo-title">CCL MALLAS</span>
+            <span class="logo-subtitle">Garantía, Buen Servicio</span>
+          </div>
+        </div>
+        <p class="footer-brand-desc">Líderes peruanos en soluciones de cribado, mallas metálicas y paneles modulares para operaciones mineras y canteras a nivel nacional.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegación</h4>
+        <ul class="footer-links-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="productos.html">Productos</a></li>
+          <li><a href="contacto.html">Contacto y Planta</a></li>
+          <li><a href="admin.html">Ingreso Administrativo (CMS)</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>Datos de Contacto</h4>
+        <ul class="footer-contact-list">
+          <li><span class="footer-contact-icon" data-icon="mapPin"></span><span id="footer-address">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="phone"></span><span id="footer-phone">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="mail"></span><span id="footer-email">Cargando...</span></li>
+          <li><span class="footer-contact-icon" data-icon="clock"></span><span id="footer-hours">Cargando...</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 CCL Industrias Mecánicas S.A.C. Todos los derechos reservados.</p>
+      <p>Propuesta de Diseño Web Moderno y CMS Administrativo</p>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast" id="toast-notification"></div>
+
+  <!-- Scripts -->
+  <script src="mockData.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/cotizar.js"></script>
+</body>
+</html>
