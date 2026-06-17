@@ -640,6 +640,18 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", closeSidebar);
   });
 
+  // Logout button functionality
+  const btnLogout = document.getElementById("btn-logout");
+  if (btnLogout) {
+    btnLogout.addEventListener("click", () => {
+      sessionStorage.removeItem("ccl_admin_logged");
+      showToast("Sesión cerrada. Redirigiendo...", "success");
+      setTimeout(() => {
+        location.href = "index.html";
+      }, 1000);
+    });
+  }
+
   // Login Form Submission
   const formLogin = document.getElementById("form-admin-login");
   if (formLogin) {
